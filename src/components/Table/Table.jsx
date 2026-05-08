@@ -65,7 +65,7 @@ class Table extends React.Component {
                     )}
                   </td>
                   <td>
-                    <input type="checkbox" checked={card.learned} readOnly/>
+                    <input type="checkbox" checked={card.learned} onChange={()=>this.props.onToggleLearned(card.id)}/>
                   </td>
                   <td>
                     {isEditing ? (

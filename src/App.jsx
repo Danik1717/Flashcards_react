@@ -1,8 +1,8 @@
 import React from "react";
-import CardForm from "./CardForm";
-import Table from "./Table";
+import CardForm from "./components/CardForm/CardForm";
+import Table from "./components/Table/Table";
 import StudyMod from "./StudyMod";
-import DeckManager from "./DeckManager";
+import DeckManager from "./components/DeckManager/DeckManager";
 
 class App extends React.Component {
   constructor() {
@@ -97,6 +97,24 @@ class App extends React.Component {
   this.setState({ decks: updatedDecks });
 };
 
+toggleLearned = (cardId) => {
+  const { decks, currentDeckId } = this.state;
+
+  const updatedDecks = decks.map((deck) => {
+    if (deck.id === Number(currentDeckId)) {
+      return {
+        ...deck,
+        cards: deck.cards.map((card) =>
+          card.id === cardId ? { ...card, learned: !card.learned } : card
+        ),
+      };
+    }
+    return deck;
+  });
+
+  this.setState({ decks: updatedDecks });
+};
+
   componentDidMount() {
     const data = JSON.parse(localStorage.getItem(`flashcards-react`));
     if (data) {
@@ -136,6 +154,7 @@ class App extends React.Component {
           cards={currentDeck ? currentDeck.cards : []}
           onDeleteCard={this.deleteCard}
           onEditCard = {this.editCard}
+          onToggleLearned = {this.toggleLearned}
         />
       </div>
     );
@@ -143,4 +162,3 @@ class App extends React.Component {
 }
 
 export default App;
-//onDeleteCard = {} onLearned = {} onEditCard={}
