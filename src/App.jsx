@@ -13,7 +13,7 @@ class App extends React.Component {
     };
   }
 
-  AddNewDeck = (NewDeckName) => {
+  addNewDeck = (NewDeckName) => {
     if (NewDeckName.trim()) {
       const newDeck = {
         title: NewDeckName,
@@ -28,12 +28,35 @@ class App extends React.Component {
   };
   deleteDeck = (currentDeckId) => {
     this.setState({
-      decks: this.state.decks.filter((deck) => deck.id !== Number(currentDeckId)),
+      decks: this.state.decks.filter(
+        (deck) => deck.id !== Number(currentDeckId),
+      ),
       currentDeckId: null,
     });
   };
   selectDeck = (id) => {
     this.setState({ currentDeckId: id });
+  };
+
+  addNewCard = (front, back) => {
+    if (front.trim() && back.trim()) {
+      const newCard = {
+        front: front,
+        back: back,
+        id: Date.now(),
+        learned: false,
+      };
+      let updatedDecks = this.state.decks.map((deck) => {
+        if (deck.id === Number(this.state.currentDeckId)) {
+          return {
+            ...deck,
+            cards: [newCard,...deck.cards]
+          }
+        }
+        return deck
+      });
+      this.setState({decks: updatedDecks})
+    }
   };
 
   componentDidMount() {
@@ -59,11 +82,11 @@ class App extends React.Component {
         <DeckManager
           decks={this.state.decks}
           currentDeckId={this.state.currentDeckId}
-          onAddDeck={this.AddNewDeck}
+          onAddDeck={this.addNewDeck}
           onSelectDeck={this.selectDeck}
-          onDeleteDeck = {this.deleteDeck}
+          onDeleteDeck={this.deleteDeck}
         />
-        <CardForm />
+        <CardForm onAddCard={this.addNewCard} />
       </div>
     );
   }
