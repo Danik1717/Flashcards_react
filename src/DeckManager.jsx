@@ -9,6 +9,20 @@ class DeckManager extends React.Component {
     this.setState({ newDeckTitle: e.target.value });
   };
 
+  handleCreateDeck = () => {
+    
+    if (this.state.newDeckTitle.trim() === "") return;
+
+    this.props.onAddDeck(this.state.newDeckTitle);
+
+    this.setState({ newDeckTitle: "" });
+};
+
+handleDeleteDeck = ()=> {
+  if(this.props.currentDeckId === null) return
+  this.props.onDeleteDeck(this.props.currentDeckId)
+}
+
   render() {
     const { decks, currentDeckId, onSelectDeck, onAddDeck } = this.props;
 
@@ -41,13 +55,11 @@ class DeckManager extends React.Component {
           onChange={this.handleChangeInput}
         />
         <button
-          onClick={() => {
-            onAddDeck(this.state.newDeckTitle);
-            this.setState({ newDeckTitle: "" });
-          }}
+          onClick={this.handleCreateDeck}
         >
           Add deck
         </button>
+        <button onClick={this.handleDeleteDeck}>Delete deck</button>
       </div>
     );
   }
