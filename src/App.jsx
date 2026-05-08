@@ -26,6 +26,7 @@ class App extends React.Component {
       });
     }
   };
+
   deleteDeck = (currentDeckId) => {
     this.setState({
       decks: this.state.decks.filter(
@@ -39,25 +40,62 @@ class App extends React.Component {
   };
 
   addNewCard = (front, back) => {
-    if (front.trim() && back.trim()) {
+    if (front.trim() && back.trim() && this.state.currentDeckId) {
       const newCard = {
         front: front,
         back: back,
         id: Date.now(),
         learned: false,
+        IsFront: true,
       };
       let updatedDecks = this.state.decks.map((deck) => {
         if (deck.id === Number(this.state.currentDeckId)) {
           return {
             ...deck,
-            cards: [newCard,...deck.cards]
-          }
+            cards: [newCard, ...deck.cards],
+          };
         }
-        return deck
+        return deck;
       });
-      this.setState({decks: updatedDecks})
+      this.setState({ decks: updatedDecks });
     }
   };
+
+  deleteCard = (cardId) => {
+    const { decks, currentDeckId } = this.state;
+
+    const updatedDecks = decks.map((deck) => {
+      if (deck.id === Number(currentDeckId)) {
+        return {
+          ...deck,
+          cards: deck.cards.filter((card) => card.id !== cardId),
+        };
+      }
+      return deck;
+    });
+
+    this.setState({ decks: updatedDecks });
+  };
+
+  editCard = (cardId, newFront, newBack) => {
+  const { decks, currentDeckId } = this.state;
+
+  const updatedDecks = decks.map((deck) => {
+    if (deck.id === Number(currentDeckId)) {
+      return {
+        ...deck,
+        cards: deck.cards.map((card) =>
+          card.id === cardId 
+            ? { ...card, front: newFront, back: newBack } 
+            : card
+        ),
+      };
+    }
+    return deck;
+  });
+
+  this.setState({ decks: updatedDecks });
+};
 
   componentDidMount() {
     const data = JSON.parse(localStorage.getItem(`flashcards-react`));
@@ -76,6 +114,10 @@ class App extends React.Component {
   }
 
   render() {
+    const currentDeck = this.state.decks.find(
+      (deck) => deck.id === Number(this.state.currentDeckId),
+    );
+
     return (
       <div>
         <h1>Fleshcards</h1>
@@ -86,10 +128,19 @@ class App extends React.Component {
           onSelectDeck={this.selectDeck}
           onDeleteDeck={this.deleteDeck}
         />
-        <CardForm onAddCard={this.addNewCard} />
+        <CardForm
+          onAddCard={this.addNewCard}
+          currentDeckId={this.state.currentDeckId}
+        />
+        <Table
+          cards={currentDeck ? currentDeck.cards : []}
+          onDeleteCard={this.deleteCard}
+          onEditCard = {this.editCard}
+        />
       </div>
     );
   }
 }
 
 export default App;
+//onDeleteCard = {} onLearned = {} onEditCard={}

@@ -1,0 +1,31 @@
+.table-container button{
+    cursor: pointer;
+    width: 90px;
+    height: 40px;
+    background: rgb(199, 199, 199);
+}
+
+
+
+table{
+    table-layout: fixed;
+    background-color: #dcedff;
+    border-collapse: collapse;
+    border: 2px solid black;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+tr{
+    font-size: 18px;
+    border: 2px solid black;
+}
+
+th,td{   
+    overflow-wrap: anywhere;
+    overflow: hidden;
+    width:300px;
+    height: 30px;
+    border: 2px solid black;
+    font-size: 18px;
+}
