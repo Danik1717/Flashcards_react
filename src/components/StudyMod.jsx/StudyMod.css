@@ -1,9 +1,116 @@
-.card {
+.study-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100px;
-  height: 100px;
-  border: 2px solid black;
+  width: 400px;
+  height: 280px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 20px auto;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 30px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+
+.front-side {
+  background-color: #f7e33c; 
+  color: #1a1b1a;
+}
+
+.is-flipped {
+  background-color: #b5b58d; 
+  color: #1a1b1a;
+  transform: rotateY(10deg); 
+}
+
+.card-number {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  opacity: 0.7;
+}
+
+.side-indicator {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  font-weight: bold;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.card-text {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.card input[type="checkbox"] {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  transform: scale(1.4);
+  accent-color: #1a1b1a;
+}
+
+
+.study-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.nav-btn {
+  min-width: 120px;
+  background-color: #4a4b4a; 
+  color: #e2e2d5;
+}
+
+.nav-btn:hover {
+  background-color: #f7e33c;
+  color: #1a1b1a;
+}
+
+.controls-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; 
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.leave-btn {
+  background-color: #f7e33c;
+  color: #1a1b1a;
+  width: 150px; 
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+.learned-checkbox {
+  z-index: 10; 
   cursor: pointer;
 }

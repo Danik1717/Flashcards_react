@@ -3,7 +3,7 @@ import CardForm from "./components/CardForm/CardForm";
 import Table from "./components/Table/Table";
 import StudyMod from "./components/StudyMod.jsx/StudyMod";
 import DeckManager from "./components/DeckManager/DeckManager";
-
+import "./App.css";
 class App extends React.Component {
   constructor() {
     super();
@@ -160,15 +160,11 @@ class App extends React.Component {
       <div>
         <h1>Fleshcards</h1>
         {this.state.isStudyMod ? (
-          <>
-            <StudyMod
-              cards={filteredDeck}
-              onToggleLearned={this.toggleLearned}
-            />
-            <button onClick={() => this.toggleStudyMod()}>
-              Leave Study Mod
-            </button>
-          </>
+          <StudyMod
+            cards={filteredDeck}
+            onToggleLearned={this.toggleLearned}
+            onLeave={this.toggleStudyMod}
+          />
         ) : (
           <>
             <DeckManager
@@ -183,22 +179,29 @@ class App extends React.Component {
               currentDeckId={this.state.currentDeckId}
             />
             <Table
+              deckTitle = {currentDeck?currentDeck.title:""}
               cards={currentDeck ? currentDeck.cards : []}
               onDeleteCard={this.deleteCard}
               onEditCard={this.editCard}
               onToggleLearned={this.toggleLearned}
             />
             {this.state.currentDeckId && (
-              <>
-                {" "}
-                Only Unlearned
-                <input
-                  type="checkbox"
-                  onChange={this.toggleOnlyLearnedMod}
-                  checked={this.state.onlyLearned}
-                />
-                <button onClick={this.toggleStudyMod}>Enter Study Mod</button>
-              </>
+              <div className="study-controls">
+                <label className="only-unlearned-label">
+                  Only Unlearned
+                  <input
+                    type="checkbox"
+                    onChange={this.toggleOnlyLearnedMod}
+                    checked={this.state.onlyLearned}
+                  />
+                </label>
+                <button
+                  className="enter-study-btn"
+                  onClick={this.toggleStudyMod}
+                >
+                  Enter Study Mod
+                </button>
+              </div>
             )}
           </>
         )}

@@ -24,7 +24,8 @@ class Table extends React.Component {
   render() {
     return (
       <div>
-        <h2>Deck</h2>
+        <hr />
+        <h2>{this.props.deckTitle}</h2>
         <table className="table-container">
           <thead>
             <tr>

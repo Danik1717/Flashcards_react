@@ -28,8 +28,8 @@ handleDeleteDeck = ()=> {
 
     return (
       <div>
-        <h2>Deck Manager</h2>
         <hr />
+        <h2>Deck Manager</h2>
         <select
           value={currentDeckId || ""}
           onChange={(e) => {

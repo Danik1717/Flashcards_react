@@ -1,4 +1,14 @@
 .error {
-    color: red;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #ff4d4d;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+div > h2 + hr + .error + input {
+    margin-top: 10px;
+}
+
+input[type="text"] {
+    width: 200px;
 }

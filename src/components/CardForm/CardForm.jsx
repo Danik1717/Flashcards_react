@@ -1,5 +1,5 @@
 import React from "react";
-import "./CardForm.css"
+import "./CardForm.css";
 class CardForm extends React.Component {
   state = {
     frontInput: "",
@@ -25,8 +25,8 @@ class CardForm extends React.Component {
   render() {
     return (
       <div>
-        <h2>AddCard</h2>
         <hr />
+        <h2>Add Card</h2>
         <div className="error">{this.state.error}</div>
         <input
           type="text"
